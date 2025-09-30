@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Saver - Bästa Erbjudanden</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-piggy-bank"></i>
+                <h1>Super Saver</h1>
+            </div>
+            <nav class="nav">
+                <a href="#erbjudanden">Erbjudanden</a>
+                <a href="#karta">Karta</a>
+                <a href="#kategorier">Kategorier</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <h2>Hitta de bästa erbjudandena i din närhet</h2>
+                <p>Upptäck fantastiska besparingar från lokala butiker</p>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="locationSearch" placeholder="Ange din plats eller postnummer">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="filters" id="kategorier">
+            <div class="container">
+                <h3>Filtrera efter kategori</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="alla">Alla</button>
+                    <button class="filter-btn" data-category="mat">Mat & Dryck</button>
+                    <button class="filter-btn" data-category="kläder">Kläder</button>
+                    <button class="filter-btn" data-category="elektronik">Elektronik</button>
+                    <button class="filter-btn" data-category="hem">Hem & Trädgård</button>
+                    <button class="filter-btn" data-category="sport">Sport & Fritid</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="deals" id="erbjudanden">
+            <div class="container">
+                <h3>Aktuella erbjudanden - sorterade efter bästa värde</h3>
+                <div class="deals-grid" id="dealsGrid">
+                    <!-- Deals will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section" id="karta">
+            <div class="container">
+                <h3>Hitta butiker på kartan</h3>
+                <div class="location-controls">
+                    <button class="location-btn" id="getCurrentLocation">
+                        <i class="fas fa-crosshairs"></i>
+                        Hitta min plats
+                    </button>
+                    <div class="location-info" id="locationInfo">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="currentLocationText">Klicka för att hitta din plats</span>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-piggy-bank"></i>
+                    <span>Super Saver</span>
+                </div>
+                <p>&copy; 2024 Super Saver. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Maps API - Development Mode -->
+    <script>
+        // Development fallback for Google Maps
+        function loadGoogleMaps() {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&libraries=geometry';
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                console.log('Google Maps failed to load, using OpenStreetMap fallback');
+                loadOpenStreetMapFallback();
+            };
+            document.head.appendChild(script);
+        }
+        
+        function loadOpenStreetMapFallback() {
+            // Load Leaflet as fallback
+            const leafletCSS = document.createElement('link');
+            leafletCSS.rel = 'stylesheet';
+            leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+            document.head.appendChild(leafletCSS);
+            
+            const leafletJS = document.createElement('script');
+            leafletJS.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            leafletJS.onload = function() {
+                initMapFallback();
+            };
+            document.head.appendChild(leafletJS);
+        }
+        
+        // Load Google Maps on page load
+        loadGoogleMaps();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
